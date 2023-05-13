@@ -1,0 +1,63 @@
+1. Import necessary libraries and header files
+
+2. Define global variables and data structures
+
+3. Define function prototypes
+
+4. Define the main function:
+   a. Check if a file name is provided as a command-line argument
+   b. If a file name is provided, call the process_the_file function with the file name
+   c. If no file name is provided, enter the interactive mode:
+      i. Display the prompt using the show_the_prompt function
+      ii. Read the user input using the gather_the_input function
+      iii. Perform variable substitution on the user input using the perform_the_variable_substitution function
+      iv. Execute the command by calling the unleash_the_command function with the modified input
+      v. Repeat steps i-iv until the user exits the shell
+
+5. Define the process_the_file function:
+   a. Open the specified file for reading
+   b. Read each line from the file
+   c. Perform variable substitution on each line using the perform_the_variable_substitution function
+   d. Execute each command by calling the unleash_the_command function
+   e. Close the file
+
+6. Define the show_the_prompt function:
+   a. Display the shell prompt
+
+7. Define the gather_the_input function:
+   a. Read a line of input from the user
+   b. Return the input string
+
+8. Define the unleash_the_command function:
+   a. Parse the input command to separate arguments
+   b. Check if the command is a built-in command (e.g., exit, env, cd, alias)
+      i. If it is a built-in command, call the respective function (e.g., escape_the_shell, reveal_the_env, journey_to_the_directory, summon_the_alias)
+      ii. If it is not a built-in command, execute the command using the system call
+
+9. Define the perform_the_variable_substitution function:
+   a. Iterate over each character in the input string
+   b. If a variable reference is found (e.g., $VAR_NAME), replace it with the corresponding value using the seek_the_variable_value function
+   c. Return the modified input string
+
+10. Define other necessary functions for handling built-in commands:
+    - escape_the_shell: Handle the exit command
+    - reveal_the_env: Handle the env command
+    - journey_to_the_directory: Handle the cd command
+    - summon_the_alias: Handle the alias command
+
+11. Define utility functions:
+    - seek_the_variable_value: Get the value of a variable
+    - eliminate_the_whitespace: Remove leading and trailing whitespace from a string
+    - unveil_the_error: Print error messages
+
+12. Implement the functions with their respective logic and error handling
+
+13. Compile and build the project
+
+14. Execute the shell and test its functionality
+
+15. Handle error conditions and edge cases
+
+16. Clean up resources and exit gracefully
+
+
