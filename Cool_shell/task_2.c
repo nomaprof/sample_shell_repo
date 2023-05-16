@@ -1,53 +1,64 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
+#include "cool_shell.h"
 
-#define BUFFER_SIZE 1024
-#define ARGUMENTS_SIZE 64
+/* #define BUFFER_SIZE 1024 */
 
-int main() {
-    char prompt[] = "Shell > ";
-    char buffer[BUFFER_SIZE];
+int main()
+{
+	/* char prompt[] = "Shell > "; */
+	/* char buffer[BUFFER_SIZE]; */
+	char **command;
+	char *buffer;
+	/* ssize_t input_length; */
+	/* char *argv[2]; */
 
-    while (1) {
-        printf("%s", prompt);
+	while (1)
+	{
+		display("shell > ", STDOUT_FILENO);
+		fflush(stdout);
 
-        // Read user input
-        ssize_t input_length = read(0, buffer, BUFFER_SIZE);
-        if (input_length == 0) {
-            break;  // End of file condition (Ctrl+D)
-        }
+		/* input_length = read(0, buffer, BUFFER_SIZE);
 
-        // Parse user input
-        buffer[input_length - 1] = '\0';  // Replace newline character with null character
+		if (input_length == 0)
+		{
+			break;
+		}
 
-        // Tokenize the input to get the command and arguments
-        char* tokens[ARGUMENTS_SIZE];
-        char* token = strtok(buffer, " ");
-        int token_count = 0;
-        while (token != NULL && token_count < ARGUMENTS_SIZE) {
-            tokens[token_count] = token;
-            token = strtok(NULL, " ");
-            token_count++;
-        }
-        tokens[token_count] = NULL;  // Set the last element to NULL for execve
+		buffer[input_length - 1] = '\0'; */
+		buffer = user_input();
+		command = tokenizer(buffer);
 
-        // Execute the command
-        if (token_count > 0) {
-            // Check if the executable file exists
-            if (access(tokens[0], X_OK) == 0) {
-                // Execute the command
-                int ret = execve(tokens[0], tokens, environ);
-                if (ret == -1) {
-                    printf("Error executing the command\n");
-                }
-            } else {
-                printf("Command not found\n");
-            }
-        }
-    }
+		if (command[0] != NULL)
+		{
+			if (access(command[0], X_OK) == 0)
+			{
+				pid_t pid = fork();
+				if (pid == -1)
+				{
+					perror("fork");
+					exit(EXIT_FAILURE);
+				}
+				else if (pid == 0)
+				{
+					/* argv[0] = command; */
 
-    return 0;
+					/* argv[1] = NULL; */
+
+					execve(command[0], command, NULL);
+					perror("execve");
+					_exit(EXIT_FAILURE);
+				}
+				else
+				{
+					waitpid(pid, NULL, 0);
+				}
+			}
+			else
+			{
+			printf("Command not found\n");
+			}
+		}
+	}
+
+	return (0);
 }
 
