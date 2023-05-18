@@ -114,9 +114,10 @@ char *user_input()
 	size_t length  = 0;
 	errno = 0;
 	getline(&input, &length, stdin);
-	if (errno)
+	if (getline(&input, &length, stdin)== -1)
 	{
-		perror("error");
+		free(input);
+		exit(status);
 	}
 	return (input);
 }

@@ -58,8 +58,6 @@ int main()
 			}
 		}
 	}
-	free(buffer);
-	free(tokens);
 
 	return (0);
 }

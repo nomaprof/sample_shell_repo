@@ -59,5 +59,26 @@ int lenstr(char *str);
 /* get the user input */
 char *user_input();
 
+/* reallocate memory */
+void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans);
+
+/* convert argv into integer */
+int _atoi(char *str);
+
+/* compare two strings */
+int cmpstr(char *first, char *second);
+
+/* join two strings together */
+char *catstr(char *destination, char *source);
+
+/* get length of prefix substring */
+int spnstr(char *first, char *second);
+
+/* get length of prefix not in string */
+int spnstrc(char *first, char *second);
+
+/* get first time a character is found in a string */
+char *chrstr(char *str, char *cha);
+
 #endif /* COOL_SHELL_H */
 
