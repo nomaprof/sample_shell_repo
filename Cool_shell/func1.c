@@ -1,52 +1,6 @@
 #include "cool_shell.h"
 
 /**
- * _realloc - reallocates memmory for tokenization
- * @pointer: points to old memory address
- * @old_ans: size of pointer
- *
- * return: new memory pointer
- */
-
-void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans)
-{
-	void *hold;
-	unsigned int m;
-
-	if (pointer == NULL)
-	{
-		hold = malloc(new_ans);
-		return (hold);
-	}
-	else if (new_ans == old_ans)
-	{
-		return (pointer);
-	}
-	else if (new_ans == 0 && pointer != NULL)
-	{
-		free (pointer);
-		return (NULL);
-	}
-	else
-	{
-		hold = malloc(new_ans);
-		if (hold != NULL)
-		{
-			for (m = 0; m < min(old_ans, new_ans); m++)
-			{
-				*((char*)hold + m) = *((char*)pointer + m);
-			}
-			free(pointer);
-			return (hold);
-		}
-		else
-		{
-			return (NULL);
-		}
-	}
-}
-
-/**
  * _atoi - change argv into integer
  * @str: the string
  *
@@ -98,7 +52,7 @@ int cmpstr(char *first, char *second)
 		{
 			break;
 		}
-		m++
+		m++;
 	}
 	return (first[m] - second[m]);
 }

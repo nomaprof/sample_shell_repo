@@ -12,6 +12,13 @@
 #include <signal.h>
 #include <stdbool.h>
 
+#define BUFFER_SIZE 1024
+#define ARGUMENT_SIZE 64
+#define OUTSIDE_COMMAND 1
+#define INSIDE_COMMAND 2
+#define ROUTE_COMMAND 3
+#define INCORRECT_COMMAND -1
+
 /* Structure declarations */
 
 /* Alias structure to store name-value pairs */
@@ -20,32 +27,24 @@ typedef struct {
     char* value;
 } Alias;
 
+/**
+ * struct map - map command to function
+ * @command_identity: internal command name
+ * @func: the function for command execution
+ */
+
+/* function mapping for builtin commands */
+
+typedef struct map
+{
+	char *command_identity;
+	void (*func)(char **command);
+}function_map;
+
 /* Function declarations */
 
-/* core.c */
-void process_the_file(const char* filename);
-
-/* display.c */
-void show_the_prompt();
-char* gather_the_input();
-
-/* execute.c */
-int unleash_the_command(char* command);
-void escape_the_shell();
-void reveal_the_env();
-void journey_to_the_directory(char* directory);
-void summon_the_alias(int argc, char* argv[]);
-
-/* substitution.c */
-char* seek_the_variable_value(const char* variable);
-void perform_the_variable_substitution(char* command);
-
-/* helpers.c */
-void eliminate_the_whitespace(char* str);
-void unveil_the_error(const char* message);
-
 /* tokenizer */
-char **tokenizer(char *buffer);
+char **tokenizer(char *buffer, char *delim);
 
 /* print */
 void display(char *info, int flow);
@@ -57,10 +56,7 @@ void cpystr(char *thecopied, char *copier);
 int lenstr(char *str);
 
 /* get the user input */
-char *user_input();
-
-/* reallocate memory */
-void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans);
+extern char *user_input();
 
 /* convert argv into integer */
 int _atoi(char *str);
@@ -78,7 +74,59 @@ int spnstr(char *first, char *second);
 int spnstrc(char *first, char *second);
 
 /* get first time a character is found in a string */
-char *chrstr(char *str, char *cha);
+char *chrstr(char *str, char cha);
+
+/* split a string into tokens */
+char *mystrtok(char *str, char *delim, char **pointer);
+
+/* reallocate memory for tokenization */
+void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans);
+
+/* find out if the command exists in the PATH */
+char *path_check(char *command);
+
+/* what is the environment variable */
+char *whichenv(char *value);
+
+/* execute the user command */
+extern void executor(char **command_now, int command_parsed);
+
+/* piping handling */
+extern void not_interacting(void);
+
+/* get the function that executes the command */
+void(*whichfunc(char*command))(char **);
+
+/* get the type of command as whether EXTERNAL, INTERNAL, PATH, or INCORRECT */
+int determine_command(char *command);
+
+/* builtin - exit the shell */
+void stop(char **elemental_command);
+
+/* bultin - return the environment variable */
+void env(char **elemental_command __attribute__((unused)));
+
+/* exit using ctrl+c */
+void exit_handler(int signalid);
+
+/* remove all comments */
+void erase_comment(char *filein);
+
+/* remove newline */
+void no_newline(char *string);
+
+/* do the command */
+void do_the_command(char **elemental_command, int command_identity);
+
+/* get the minimum of two variables */
+#define min(x, y) (((x) < (y)) ? (x) : (y))
+
+/* other external variables*/
+extern char **environ;
+extern char *input;
+extern char **commands;
+extern char *name_of_shell;
+extern int  status;
+
 
 #endif /* COOL_SHELL_H */
-

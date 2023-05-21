@@ -1,11 +1,11 @@
 #include "cool_shell.h"
 
 /**
- * display - print to stdout
- * @info: information to print
- * @flow: tracking printed characters
+ * display - display to stdout
+ * @info: information to display
+ * @flow: tracking displayed characters
  *
- * Return: printed string
+ * Return: displayed string
  */
 
 void display(char *info, int flow)
@@ -67,57 +67,40 @@ int lenstr(char *str)
  *
  * Return: array of strings
  */
-
-char **tokenizer(char *buffer)
+/* Tokenize the input to get the command and arguments */
+char **tokenizer(char *buffer, char *delim)
 {
-	int width = 0;
-	int size = 16;
-	char *delim = " \n";
-	char **tokens;
-	char *token;
-	tokens = malloc(size * sizeof(char*));
-	if (!tokens)
-	{
-		perror("tsh:memory allocation error");
-		exit(-1);
-	}
-	token = strtok(buffer, delim);
+	char **tokens = NULL;
+	char *token = NULL;
+	int count = 0;
+	char *pointer = NULL;
+	
+	token = mystrtok(buffer, delim, &pointer);
+
 	while (token != NULL)
 	{
-		tokens[width] = token;
-		width++;
-		if (width >= size)
-		{
-			size = (int) (size * 1.5);
-			tokens = realloc(tokens, size * sizeof(char *));
-			if (!tokens)
-			{
-				perror("tsh:memory allocation error");
-				exit(-1);
-			}
-		}
-		token =  strtok(NULL, delim);
+		tokens = _realloc(tokens, sizeof(*tokens) * count, sizeof(*tokens) * (count + 1));
+		tokens[count] = token;
+		token = mystrtok(NULL, delim, &pointer);
+		count++;
 	}
-	tokens[width] = NULL;
+	/* Set the last element to null before calling excve */
+	tokens = _realloc(tokens, sizeof(*tokens) * count, sizeof(*tokens) * (count + 1));
+	tokens[count] = NULL;
 	return (tokens);
 }
+
 
 /**
  * user_input - get user input
  *
  * Return: command and argument
  */
-
 char *user_input()
 {
-	char *input = NULL;
-	size_t length  = 0;
-	errno = 0;
-	getline(&input, &length, stdin);
-	if (getline(&input, &length, stdin)== -1)
-	{
-		free(input);
-		exit(status);
-	}
+	/* read user input */
+	ssize_t input_length = read(0, input, BUFFER_SIZE);
+	/* get user input */
+	input[input_length - 1] = '\0';
 	return (input);
 }
