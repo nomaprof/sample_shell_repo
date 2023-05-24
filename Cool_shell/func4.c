@@ -49,21 +49,21 @@ char *path_check(char *command)
 
 char *whichenv(char *value)
 {
-	char **viron;
-	char *twoway;
-	char *value_cpy;
+	char **ron;
+	char *two;
+	char *ans_cpy;
 
-	for (viron = environ; *viron != NULL; viron++)
+	for (ron = environ; *ron != NULL; ron++)
 	{
-		for (twoway = *viron, value_cpy = value; *twoway == *value_cpy; twoway++, value_cpy++)
+		for (two = *ron, ans_cpy = value; *two == *ans_cpy; two++, ans_cpy++)
 		{
-			if (*twoway == '=')
+			if (*two == '=')
 			{
 				break;
 			}
-			if ((*twoway == '=') && (*value_cpy == '\0'))
+			if ((*two == '=') && (*ans_cpy == '\0'))
 			{
-				return (twoway + 1);
+				return (two + 1);
 			}
 		}
 	}
@@ -81,7 +81,7 @@ char *whichenv(char *value)
 void do_the_command(char **elemental_command, int command_identity)
 {
 	void (*func)(char **command);
-	
+
 	if (command_identity == OUTSIDE_COMMAND)
 	{
 		if (execve(elemental_command[0], elemental_command, NULL) == -1)

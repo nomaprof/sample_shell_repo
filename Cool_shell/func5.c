@@ -7,7 +7,7 @@
  * Return: no value
  */
 
-void(*whichfunc(char*command))(char **)
+void(*whichfunc(char *command))(char **)
 {
 	int m;
 
@@ -31,9 +31,9 @@ void(*whichfunc(char*command))(char **)
  *
  * Return: the command type
  * Description - OUTSIDE_COMMAND(1)
- 		 INSIDE_COMMAND (2)
-		 ROUTE_COMMAND  (3)
-		 INCORRECT_COMMAND (-1)
+ * INSIDE_COMMAND(2)
+ * ROUTE_COMMAND(3)
+ * INCORRECT_COMMAND(-1)
 */
 
 int determine_command(char *command)
@@ -126,6 +126,6 @@ void stop(char **elemental_command)
 	}
 	else
 	{
-		display(" > : exit does not take more than one argument\n", STDERR_FILENO);
+		display(" $ : exit does not take more than one argument\n", STDERR_FILENO);
 	}
 }

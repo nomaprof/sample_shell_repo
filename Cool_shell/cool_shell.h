@@ -21,16 +21,27 @@
 
 /* Structure declarations */
 
-/* Alias structure to store name-value pairs */
-typedef struct {
-    char* name;
-    char* value;
-} Alias;
+/**
+ * struct aliases - map aliases
+ * @name: the alias
+ * @value: the realcommand
+ *
+ * Description - contains info for alias
+ */
+
+
+typedef struct aliases
+{
+	char *name;
+	char *value;
+} alias;
 
 /**
  * struct map - map command to function
  * @command_identity: internal command name
  * @func: the function for command execution
+ *
+ * Description - contains infor for builtins
  */
 
 /* function mapping for builtin commands */
@@ -39,7 +50,7 @@ typedef struct map
 {
 	char *command_identity;
 	void (*func)(char **command);
-}function_map;
+} function_map;
 
 /* Function declarations */
 
@@ -95,7 +106,7 @@ extern void executor(char **command_now, int command_parsed);
 extern void not_interacting(void);
 
 /* get the function that executes the command */
-void(*whichfunc(char*command))(char **);
+void(*whichfunc(char *command))(char **);
 
 /* get the type of command as whether EXTERNAL, INTERNAL, PATH, or INCORRECT */
 int determine_command(char *command);
@@ -121,12 +132,12 @@ void do_the_command(char **elemental_command, int command_identity);
 /* get the minimum of two variables */
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 
-/* other external variables*/
+/* define external variables */
 extern char **environ;
 extern char *input;
 extern char **commands;
 extern char *name_of_shell;
-extern int  status;
+extern int status;
 
 
 #endif /* COOL_SHELL_H */

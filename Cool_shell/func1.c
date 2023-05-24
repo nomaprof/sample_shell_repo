@@ -11,8 +11,7 @@ int _atoi(char *str)
 {
 	unsigned int m = 0;
 
-	do
-	{
+	do {
 		if (*str == '_')
 		{
 			return (-1);
@@ -29,8 +28,7 @@ int _atoi(char *str)
 		{
 			break;
 		}
-	}
-	while (*str++);
+	} while (*str++);
 	return (m);
 }
 

@@ -10,7 +10,7 @@ void exit_handler(int signalid)
 {
 	if (signalid == SIGINT)
 	{
-		display("\n >", STDIN_FILENO);
+		display("\n($) ", STDIN_FILENO);
 	}
 }
 
@@ -41,18 +41,17 @@ void erase_comment(char *filein)
 
 /**
  * not_interacting - non-interactive command handling
- * 
  * Return: no value
  */
 
 void not_interacting(void)
 {
 	char **command_now = NULL;
-	int m; 
+	int m;
 	int command_parsed = 0;
 	size_t input_length = 0;
 
-	if (! (isatty(STDIN_FILENO)))
+	if (!(isatty(STDIN_FILENO)))
 	{
 		while (getline(&input, &input_length, stdin) != -1)
 		{
@@ -89,6 +88,7 @@ void not_interacting(void)
 void no_newline(char *string)
 {
 	int m = 0;
+
 	while (string[m] != '\0')
 	{
 		if (string[m] == '\n')

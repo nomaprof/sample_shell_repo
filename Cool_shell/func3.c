@@ -52,7 +52,7 @@ char *chrstr(char *str, char cha)
 
 /**
  * mystrtok - tokenize a string
- * @string: the string
+ * @str: the string
  * @delim: used to tokenize strings
  * @pointer: used to keep tabs on tokenization
  *
@@ -62,6 +62,7 @@ char *chrstr(char *str, char cha)
 char *mystrtok(char *str, char *delim, char **pointer)
 {
 	char *done;
+
 	if (str == NULL)
 	{
 		str = *pointer;
@@ -92,8 +93,9 @@ char *mystrtok(char *str, char *delim, char **pointer)
  * _realloc - reallocates memmory for tokenization
  * @pointer: points to old memory address
  * @old_ans: size of pointer
+ * @new_ans: new size of pointer
  *
- * return: new memory pointer
+ * Return: no value
  */
 
 void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans)
@@ -112,7 +114,7 @@ void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans)
 	}
 	else if (new_ans == 0 && pointer != NULL)
 	{
-		free (pointer);
+		free(pointer);
 		return (NULL);
 	}
 	else
@@ -122,7 +124,7 @@ void *_realloc(void *pointer, unsigned int old_ans, unsigned int new_ans)
 		{
 			for (m = 0; m < min(old_ans, new_ans); m++)
 			{
-				*((char*)hold + m) = *((char*)pointer + m);
+				*((char *)hold + m) = *((char *)pointer + m);
 			}
 			free(pointer);
 			return (hold);
